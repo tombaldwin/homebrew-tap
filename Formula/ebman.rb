@@ -1,30 +1,31 @@
-# Homebrew formula for ebman.
+# Homebrew formula for ebman — k9s-style TUI for AWS Elastic Beanstalk.
 #
-# Usage (until tap is published):
-#   brew install --formula ./Formula/ebman.rb
+# Install:
+#   brew tap tombaldwin/tap
+#   brew install ebman
 #
-# When a `v*` tag is pushed, the `release` workflow attaches per-target tarballs
-# to the GitHub Release. The `url` / `sha256` fields below must be bumped to
-# match each new release — `scripts/update-formula.sh` (not yet written) can
-# be the home for that bumping later. The current numbers are stubs and will
-# need updating before the formula resolves.
+# Bumping for a new release: run `scripts/update-formula.sh vX.Y.Z` from
+# the ebman repo — it computes SHA-256s from the GitHub Release tarballs
+# and writes both the in-repo Formula/ebman.rb and this tap copy in one
+# go. The release workflow at .github/workflows/release.yml produces the
+# tarballs the script consumes.
 class Ebman < Formula
   desc "k9s-style TUI for AWS Elastic Beanstalk"
   homepage "https://github.com/tombaldwin/ebman"
-  version "0.3.5"
+  version "0.7.0"
   license "MIT OR Apache-2.0"
 
   if OS.mac?
     if Hardware::CPU.arm?
       url "https://github.com/tombaldwin/ebman/releases/download/v#{version}/ebman-v#{version}-aarch64-apple-darwin.tar.gz"
-      sha256 "8f9a4852a9a4cfcfb2eb364768e4828ad631d33ab8bdeef587ea6f2f6ef459f4"
+      sha256 "f068bfc6b27e405ca78c712181493b82d3a4027f9b9a48ff4a09505c7ca532cd"
     else
       url "https://github.com/tombaldwin/ebman/releases/download/v#{version}/ebman-v#{version}-x86_64-apple-darwin.tar.gz"
-      sha256 "69ffd2ba7957eb5aff281797fb538d827a37ed08a1101c17ae579c00dfc432df"
+      sha256 "8302a3d697b70171c44995a70b232127f2218a4a5935f9aaa86c0009d76a88c8"
     end
   elsif OS.linux?
     url "https://github.com/tombaldwin/ebman/releases/download/v#{version}/ebman-v#{version}-x86_64-unknown-linux-gnu.tar.gz"
-    sha256 "69e6b3514c99a1d52ae755b3fe77ca88128f5919d02d46dfada040bfd74c33be"
+    sha256 "b709901db5c465575b7d3ac8fbfcd48b17b16e21e59a3423c08db49fdbc03e07"
   end
 
   depends_on "curl" # used by the live-log-tail S3 fetcher

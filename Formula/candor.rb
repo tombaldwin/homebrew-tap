@@ -23,6 +23,9 @@ class Candor < Formula
     zsh_completion.install "completions/_candor" => "_candor"
     bash_completion.install "completions/candor.bash" => "candor"
     fish_completion.install "completions/candor.fish"
+    # the Claude Code edit-time Stop-hook scripts — `candor hook` wires them into a repo
+    hooks = %w[stop-hook.sh candor-review.sh candor-review-source.sh lib-candor-summary.sh]
+    (pkgshare/"hooks").install hooks.map { |f| "integrations/claude-code/#{f}" }
     prefix.install "README.md", "LICENSE-MIT", "LICENSE-APACHE"
   end
 

@@ -12,8 +12,8 @@
 class Candor < Formula
   desc "One-command effect analysis across every language"
   homepage "https://candor.poly.io"
-  url "https://github.com/tombaldwin/candor/archive/refs/tags/v0.15.0.tar.gz"
-  sha256 "0000000000000000000000000000000000000000000000000000000000000000" # filled at ship by update-candor.sh
+  url "https://github.com/tombaldwin/candor/archive/refs/tags/v0.16.0.tar.gz"
+  sha256 "2b94f1a9c4d8ebc09c5872600d69f5137a288360ee7c8b508bfd302693a1928b" # filled at ship by update-candor.sh
   license "MIT OR Apache-2.0"
 
   depends_on "curl" # candor update fetches the engine binaries
@@ -21,6 +21,8 @@ class Candor < Formula
   def install
     bin.install "bin/candor"
     zsh_completion.install "completions/_candor" => "_candor"
+    bash_completion.install "completions/candor.bash" => "candor"
+    fish_completion.install "completions/candor.fish"
     prefix.install "README.md", "LICENSE-MIT", "LICENSE-APACHE"
   end
 

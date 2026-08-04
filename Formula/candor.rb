@@ -12,7 +12,7 @@
 class Candor < Formula
   desc "One-command effect analysis across every language"
   homepage "https://candor.poly.io"
-  url "https://github.com/tombaldwin/candor/archive/refs/tags/0.26.0.tar.gz"
+  url "https://github.com/tombaldwin/candor/archive/refs/tags/v0.26.0.tar.gz"
   sha256 "75c0805efa93611a0eba785944f89d78d13b717e19a477180b5abdb7961f6319" # filled at ship by update-candor.sh
   license "MIT OR Apache-2.0"
 

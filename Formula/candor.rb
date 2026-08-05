@@ -26,6 +26,11 @@ class Candor < Formula
     # the Claude Code edit-time Stop-hook scripts — `candor hook` wires them into a repo
     hooks = %w[stop-hook.sh candor-review.sh candor-review-source.sh lib-candor-summary.sh]
     (pkgshare/"hooks").install hooks.map { |f| "integrations/claude-code/#{f}" }
+    # `candor init`'s POLICY PROPOSER. Without this, a brew install silently lost init's headline
+    # feature: it fell back to a baseline-only setup and printed "policy proposal skipped", while the
+    # caveats below promised the full gate. The dispatcher searches ../adopt (a git checkout) then
+    # ../share/candor/adopt (this layout) — the same two-layout search it already does for the hooks.
+    (pkgshare/"adopt").install "adopt/candor-init"
     prefix.install "README.md", "LICENSE-MIT", "LICENSE-APACHE"
   end
 
@@ -33,11 +38,17 @@ class Candor < Formula
     <<~EOS
       candor manages the analysis engines for you. Get to a first result:
 
+        cd your-project
+        candor tour            # the most surprising reaches in this code
+
+      That is the whole thing. If the engine your project needs is not installed
+      candor fetches it, and if there is no report yet it scans first — each
+      announced before it happens. To require the explicit steps instead, set
+      CANDOR_NO_AUTOFETCH=1 / CANDOR_NO_AUTOSCAN=1:
+
         candor update          # fetch the engines (the JVM engine as a native
                                #   binary — no JVM needed); ts runs via npx
-        cd your-project
         candor scan .          # analyse (engine picked by the manifest)
-        candor tour            # a result: the most surprising reaches
         candor doctor          # verify installs + spec agreement
 
       More:
@@ -52,5 +63,9 @@ class Candor < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/candor --version")
+    # The install must carry `candor init`'s policy proposer. It did not for several releases, and
+    # nothing noticed: the dispatcher degrades to "policy proposal skipped" rather than failing, so a
+    # brew user got a quieter `init` than the caveats describe and no error anywhere.
+    assert_predicate pkgshare/"adopt/candor-init", :exist?
   end
 end

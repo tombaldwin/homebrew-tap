@@ -12,8 +12,8 @@
 class Candor < Formula
   desc "One-command effect analysis across every language"
   homepage "https://candor.poly.io"
-  url "https://github.com/tombaldwin/candor/archive/refs/tags/v0.40.3.tar.gz"
-  sha256 "0ef6c93cea02ae828318f6b69f7109230b77c5efc0cbedb97d0b71c3b720f281" # filled at ship by update-candor.sh
+  url "https://github.com/tombaldwin/candor/archive/refs/tags/v0.40.4.tar.gz"
+  sha256 "c63140896634962739d54aa924abb27efd4123abbdf36e8a32b2a2d53153a0c8" # filled at ship by update-candor.sh
   license "MIT OR Apache-2.0"
 
   depends_on "curl" # candor update fetches the engine binaries
